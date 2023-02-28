@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <stdlib.h> // for malloc
+#include <stdlib.h>
 
 char *ft_strdup(char *src) {
     int len = 0;
