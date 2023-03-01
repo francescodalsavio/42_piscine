@@ -1,49 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdal-sa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 15:31:36 by frdal-sa          #+#    #+#             */
-/*   Updated: 2023/03/01 15:48:17 by frdal-sa         ###   ########.fr       */
+/*   Created: 2023/03/01 18:14:11 by frdal-sa          #+#    #+#             */
+/*   Updated: 2023/03/01 18:14:57 by frdal-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_strlen(const char *str)
+int	*ft_range(int min, int max)
 {
+	int	*array;
+	int	numbers_of_int_in_array;
 	int	index;
+	int	index_array;
 
-	index = 0;
-	while (str[index])
+	if (min >= max)
 	{
-		index++;
+		return (0);
 	}
-	return (index);
-}
-
-void	ft_memcpy(char *dest, const char *src, int n)
-{
-	int	index;
-
-	index = 0;
-	while (index < n)
+	numbers_of_int_in_array = max - min;
+	array = malloc(sizeof(int) * numbers_of_int_in_array);
+	index = min;
+	index_array = 0;
+	while (index < max)
 	{
-		dest[index] = src[index];
+		array[index_array] = index;
 		index++;
+		index_array++;
 	}
-}
-
-char	*ft_strdup(char *src)
-{
-	int		len;
-	char	*dst;
-
-	len = ft_strlen(src);
-	dst = malloc(len + 1);
-	ft_memcpy(dst, src, len);
-	dst[len] = '\0';
-	return (dst);
+	return (array);
 }
