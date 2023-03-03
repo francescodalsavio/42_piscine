@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_power.c                               :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frdal-sa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 14:54:45 by frdal-sa          #+#    #+#             */
-/*   Updated: 2023/02/28 15:00:30 by frdal-sa         ###   ########.fr       */
+/*   Created: 2023/02/28 15:09:20 by frdal-sa          #+#    #+#             */
+/*   Updated: 2023/03/02 15:48:39 by frdal-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_power(int nb, int power)
+int	ft_sqrt(int nb)
 {
-	int	result;
 	int	i;
 
-	result = 1;
-	if (power < 0)
+	i = 2;
+	if (nb > 2147395600)
 	{
 		return (0);
 	}
-	else if (power == 0 && nb == 0)
+	if (nb == 1)
 	{
 		return (1);
 	}
-	else
+	if (nb <= 0)
 	{
-		while (i < power)
-		{
-			result = result * nb;
-		}
-		return (result);
+		return (0);
 	}
+	while ((i * i) < nb)
+	{
+		i++;
+	}
+	if ((i * i) == nb)
+	{
+		return (i);
+	}
+	return (0);
 }
