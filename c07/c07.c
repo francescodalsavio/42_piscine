@@ -3,130 +3,111 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//ex00
-int	ft_strlen(const char *str)
+
+int		ft_strlen(char *s)
 {
-	int	index;
-
-	index = 0;
-	while (str[index])
-	{
-		index++;
-	}
-	return (index);
-}
-
-void	ft_memcpy(char *dest, const char *src, int n)
-{
-	int	index;
-
-	index = 0;
-	while (index < n)
-	{
-		dest[index] = src[index];
-		index++;
-	}
-}
-
-char	*ft_strdup(char *src)
-{
-	int		len;
-	char	*dst;
-
-	len = ft_strlen(src);
-	dst = malloc(len + 1);
-	ft_memcpy(dst, src, len);
-	dst[len] = '\0';
-	return (dst);
-}
-
-//ex01
-
-int *ft_range(int min, int max)
-{
-	int *array;
-	int numbers_of_int_in_array;
-	int index;
-	int index_array;
-
-	if (min >= max)
-	{
-		return (0);
-	}
-	numbers_of_int_in_array = max - min;
-	array = malloc(sizeof(int) * numbers_of_int_in_array);
-	index = min;
-	index_array = 0;
-	while (index < max)
-	{
-		array[index_array] = index;
-		index++;
-		index_array++;
-	}
-	return (array);
-}
-
-//ex02
-
-int ft_ultimate_range(int **range, int min, int max)
-{
-    int size;
     int i;
-
-    if (min >= max)
-    {
-        *range = NULL;
-        return (0);
-    }
-
-    size = max - min;
-    *range = malloc(sizeof(int) * size);
-
-    if (*range == NULL)
-    {
-        return (-1);
-    }
 
     i = 0;
-    while (min < max)
+    while (s[i])
     {
-        (*range)[i] = min;
         i++;
-        min++;
     }
-
-    return (size);
+    return (i);
 }
 
+char	*ft_strcat(char *dest, char *src)
+{
+	int i;
+	int x;
 
+	i = 0;
+	x = 0;
+
+    while (dest[i])
+    {
+        i++;
+    }
+    while (src[x])
+    {
+        dest[i] = src[x];
+        x++;
+        i++;
+    }
+    dest[i] = '\0';
+    return (dest);
+}
+
+char	*ft_strjoin(int size, char **strs, char *sep)
+{
+	int		i;
+	char	*str;
+	int		length;
+
+	i = 0;
+	length = 0;
+	while (i < size)
+	{
+		length += ft_strlen(strs[i]);
+		i++;
+	}
+	length += ((size - 1) * ft_strlen(sep));
+    str = (char *)malloc(sizeof(char) * (length + 1));
+    if (str == ((void *)0))
+    return ((void *)0);
+	i = 0;
+	while (i < size)
+	{
+		ft_strcat(str, strs[i]);
+		if ((i + 1) < size)
+			ft_strcat(str, sep);
+		i++;
+	}
+	return (str);
+}
 int main()
 {
-    int *range;
-    int size;
-    int i;
-
-    size = ft_ultimate_range(&range, 10, 20);
-
-    if (size == -1)
+    char *strs1[] = {"Hello", "world", "!"};
+    char *sep1 = " ";
+    char *expected1 = "Hello world !";
+    char *result1 = ft_strjoin(3, strs1, sep1);
+    if (strcmp(result1, expected1) == 0)
     {
-        printf("Memory allocation failed\n");
-        return (1);
+        printf("Test 1 passed.\n");
     }
-    else if (size == 0)
+    else
     {
-        printf("Invalid range\n");
-        return (1);
+        printf("Test 1 failed.\n");
     }
+    free(result1);
 
-    printf("Array size: %d\n", size);
-
-    for (i = 0; i < size; i++)
+    char *strs2[] = {"The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"};
+    char *sep2 = "-";
+    char *expected2 = "The-quick-brown-fox-jumps-over-the-lazy-dog";
+    char *result2 = ft_strjoin(9, strs2, sep2);
+    if (strcmp(result2, expected2) == 0)
     {
-        printf("%d ", range[i]);
+        printf("Test 2 passed.\n");
     }
+    else
+    {
+        printf("Test 2 failed.\n");
+    }
+    free(result2);
 
-    printf("\n");
+    char *strs3[] = {};
+    char *sep3 = ",";
+    char *expected3 = "";
+    char *result3 = ft_strjoin(0, strs3, sep3);
+    if (strcmp(result3, expected3) == 0)
+    {
+        printf("Test 3 passed.\n");
+    }
+    else
+    {
+        printf("Test 3 failed.\n");
+    }
+    free(result3);
 
-    free(range);
-    return (0);
+    return 0;
 }
